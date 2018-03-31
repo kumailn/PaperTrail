@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+        <title> Login Page </title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    </head>
+    <body>
+
+            <style>
+                    .formbutton {
+                        margin-bottom: 1em;
+                    }
+
+                    #login{
+                        margin-top: 10%;
+                        width: 500px;
+                        padding: 25px;
+                        
+                    }
+
+                    body {
+                        background-image: url('particle.gif');
+                        background-size: cover;
+                        
+                    }
+            </style>
+
+                <div class="container" id="login" style="width: 20%">
+
+                    <form action="/login" method="post" id="box">
+
+                        <center>
+                                <h1>Welcome to ResearchChain</h1>
+                        </center>
+                    
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Username</label>
+                            <input type="email" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter Username">
+                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password">
+                        </div>
+                        <center>
+                        <input type="submit" value="Login" class="btn btn-outline-success" name="login">
+                        <input type="submit" value="Sign Up" class="btn btn-outline-primary" name="signup">
+                        </center>
+                    </form>
+                </div> 
+    </body>
+</html>
