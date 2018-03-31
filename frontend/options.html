@@ -5,8 +5,9 @@
         <title> Home </title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> 
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        
+        <script src="js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="parstyle.css">
+
         <script type="text/javascript">
             $('#vm').click(function(){
                 $('#viewmodal').modal('show');
@@ -28,9 +29,13 @@
     </head>
     <body>
 
+        <div id="particles-js"></div>
+        <script type="text/javascript" src="particles.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+
         <style>
         
-            #contain{
+            #body{
                 margin-top: 5%;
             }
 
@@ -42,8 +47,8 @@
             
         </style>
 
-        <center>
-        <h1 id="title">Welcome to ResearchChain!</h1>
+        <center id="title">
+        <h1>Welcome to ResearchChain!</h1>
 
         <p> ResearchChain is a decentralised platform to view, upload, and validate
             scientific research papers.
@@ -51,24 +56,24 @@
 
         </center>
 
-        <div class="container" id="contain">
+        <div class="container" id="body">
             <div class="row">
                 <div class="col-md-4">
                     <center> 
-                    <h1>View Papers</h1>
-                    <p> View papers that have already been validated. </p>
+                    <h1 id="header">View Papers</h1>
+                    <p id="header"> View papers that have already been validated. </p>
                     </center>
                 </div>
                 <div class="col-md-4">
                     <center> 
-                    <h1>Upload Papers</h1>
-                    <p> Upload papers to be validated. </p>
+                    <h1 id="header">Upload Papers</h1>
+                    <p id="header"> Upload papers to be validated. </p>
                     </center>
                 </div>
                 <div class="col-md-4">          
                     <center> 
-                    <h1>Validate Papers</h1>
-                    <p> Validate papers that have recently been uploaded. </p>
+                    <h1 id="header">Validate Papers</h1>
+                    <p id="header"> Validate papers that have recently been uploaded. </p>
                     </center>
                 </div>
             </div>
@@ -78,7 +83,7 @@
                 <div class="col-md-4">
                     
                     <center>
-                    <button type="button" id="vm" class="btn btn-outline-success" data-toggle="modal" data-target="#viewmodal">View</button>
+                    <button type="button" id="vm" class="btn btn-outline-info" data-toggle="modal" data-target="#viewmodal">View</button>
                     </center>
 
                     <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -108,7 +113,7 @@
                 <div class="col-md-4">
                         
                         <center>
-                        <button type="button" id="um" class="btn btn-outline-success" data-toggle="modal" data-target="#uploadmodal">Upload</button>
+                        <button type="button" id="um" class="btn btn-outline-info" data-toggle="modal" data-target="#uploadmodal">Upload</button>
                         </center>
 
                         <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -151,7 +156,7 @@
                 <div class="col-md-4">
                     
                         <center>
-                                <button type="button" id="valm" class="btn btn-outline-success" data-toggle="modal" data-target="#valmodal">Validate</button>
+                                <button type="button" id="valm" class="btn btn-outline-info" data-toggle="modal" data-target="#valmodal">Validate</button>
                                 </center>
         
                                 <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

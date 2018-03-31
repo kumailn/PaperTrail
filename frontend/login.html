@@ -1,9 +1,11 @@
 <!DOCTYPE html> 
 <html>
     <head>
+        
         <title> Login Page </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link rel="stylesheet" href="parstyle.css">
+    
     </head>
     <body>
 
@@ -16,7 +18,7 @@
                         margin-bottom: 1em;
                     }
 
-                    #login{
+                    #body{
                         margin-top: 10%;
                         width: 500px;
                         padding: 25px;
@@ -25,21 +27,20 @@
 
             </style>
 
-                <div class="container" id="login" style="width: 20%">
+                <div class="container" id="body" style="width: 20%">
 
                     <form action="/login" method="post" id="box">
 
                         <center>
-                                <h1>Welcome to ResearchChain</h1>
+                                <h1 id="header">Welcome to ResearchChain!</h1>
                         </center>
                     
                         <div class="form-group">
-                            <label for="exampleInputEmail1">Username</label>
+                            <label for="exampleInputEmail1" id="label">Username</label>
                             <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter Username">
-                            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputPassword1">Password</label>
+                            <label for="exampleInputPassword1" id="label">Password</label>
                             <input type="password" class="form-control" name="password" placeholder="Password">
                         </div>
                         <center>
