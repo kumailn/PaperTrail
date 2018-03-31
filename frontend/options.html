@@ -4,6 +4,13 @@
     <head>
         <title> Home </title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+            $('#viewmodal').on('shown.bs.modal', function () {
+            $('#myInput').trigger('focus')
+            })
+        </script>
+    
     </head>
     <body>
 
@@ -51,6 +58,7 @@
             </div>
 
             <div class="row">
+                
                 <div class="col-md-4">
                     <center>
                     <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#viewmodal">View</button>
@@ -73,15 +81,13 @@
                         </div>
                     </div>
 
-
-
-
                 </div>
                 <div class="col-md-4">
                     <center>
                     <input type="submit" value="Upload" class="btn btn-outline-success" name="upload">
                     </center>
                 </div>
+
 
 
                 <div class="col-md-4">
