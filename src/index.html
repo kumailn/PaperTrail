@@ -102,7 +102,7 @@
                     window.contractInstance = window.NotSoSimpleStorageContractObject.at(contractAddress);
                     console.log('Contract deployed at address ', contractAddress);
                 } else if (contract.transactionHash) {
-                    console.log("Waiting for contract to be deployed... Contract's transaction hash: ", contract.transactionHash);  
+                    console.log("Waiting for contract to be deployed... Contract's transaction hash: ", contract.transactionHash);
                 } else {
                     console.error('Unknown error deploying contract');
                 }
@@ -156,6 +156,22 @@
         }
 
         function addFile(url) {
+            var reader = new FileReader();
+            reader.onloadend = function(){
+              var ipfs = window.IpfsApi('localhost', 5001)
+              var buf = buffer.Buffer(reader.result)
+              ipfs.files.add(buf, (err, result) => {
+                if(err) {
+                  console.error(err)
+                  return
+                }
+              var url = `https://ipfs.io/ipfs/${result[0].hash}`
+              console.log(`Url --> ${url}`)
+            });
+          }
+        }
+
+            /*
             window.ipfs.add(url, function(err, result) {
                 if (err) {
                     console.error('Error sending file: ', err);
@@ -169,11 +185,28 @@
                     return null;
                 }
             });
-        }
+            */
+        window.onload = function() {
+          yourFunction(param1, param2);
+        };
+
+        function status(){
+          initIpfs().then((response) =>{
+            console.log(response);
+            if (response.data.Success) {
+              return;
+            } else {
+              return;
+            }
+          }).catch((error) => {
+              return;
+          })
+          }
     </script>
 </head>
 <body>
     <p>Open the JavaScript console to use the application.</p>
+    <h2 id="stat"></h2>
     <ul>Usage:
         <li><code>deployContract()<code>: deploy Ethereum contract</li>
         <li><code>addFile(URL)<code>: save a file to IPFS</li>
@@ -181,4 +214,3 @@
         <li><code>getData()<code>: get the latest value (IPFS hash) stored in the Ethereum contract</li>
     </ul>
 </body>
-
