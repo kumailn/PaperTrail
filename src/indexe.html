@@ -163,7 +163,7 @@
               var dataURL = reader.result;
               const ipfs = window.IpfsApi('localhost', 3000)
               const buf = buffer.Buffer(dataURL)
-              ipfs.files.add(buf, (err, result) => {
+              window.ipfs.add(buf, (err, result) => {
                 if (err){
                   console.log(err)
                   return
