@@ -155,21 +155,28 @@
             });
         }
 
-        function addFile(url) {
-            window.ipfs.add(url, function(err, result) {
-                if (err) {
-                    console.error('Error sending file: ', err);
-                    return null;
-                } else if (result && result[0] && result[0].Hash) {
-                    var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
-                    console.log('File: ', result[0].Hash);
-                    console.log(imageURL);
-                } else {
-                    console.error('No file for you...');
-                    return null;
+        var addFile = function(event) {
+            var input = event.target;
+        
+            var reader = new FileReader();
+            reader.onload = function(){
+              var dataURL = reader.result;
+              const ipfs = window.IpfsApi('localhost', 3000)
+              const buf = buffer.Buffer(dataURL)
+              ipfs.files.add(buf, (err, result) => {
+                if (err){
+                  console.log(err)
+                  return
                 }
-            });
-        }
+                let url = `https://ipfs.io/ipfs/${result[0].hash}`
+                console.log(`Url --> ${url}`)
+              })
+              var output = document.getElementById('output');
+              output.src = dataURL;
+            };
+            //reader.readAsDataURL(input.files[0]);
+          };
+
     </script>
 </head>
 <body>
@@ -178,6 +185,10 @@
     <ul>Usage:
         <li><code>deployContract()<code>: deploy Ethereum contract</li>
         <li><code>addFile(URL)<code>: save a file to IPFS</li>
+            <div>
+                <input type='file' onchange='addFile'><br>
+                <img id='output'>
+            </div>
         <li><code>sendTransaction(IPFSHash)<code>: send a transaction to the Ethereum contract</li>
         <li><code>getData()<code>: get the latest value (IPFS hash) stored in the Ethereum contract</li>
     </ul>
