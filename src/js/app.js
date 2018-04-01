@@ -149,6 +149,7 @@ App = {
         //adoptionInstance = instance;
         // Execute adopt as a transaction by sending account
         return instance.save(window.ipfsHash, "123", $("#name1").val(), {from: account});
+        $("#yourhash").text("Your file hash: " + window.ipfsHash);
         //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
       }).then(function(result) {
         console.log("Successfully added to block: " + result);

@@ -30,7 +30,7 @@
          $('#valm').click(function(){
          $('#valmodal').modal('show');
          });  
-         
+     
          // Config
          var ipfsHost    = 'localhost',
              ipfsAPIPort = '5001',
@@ -54,7 +54,7 @@
          
          $(document).ready(function() {
             $("#collectmoney").prop("disabled", false);
-         
+
              // executes when HTML-Document is loaded and DOM is ready
              $("#ipfs-upload").click(function(){
                  console.log("Trying to submit....");
@@ -78,7 +78,7 @@
              });
              
          });
-         
+
          
          $("#aaa").click(function(){
              console.log("works");
@@ -89,23 +89,24 @@
          margin-top: 5%;
          }
          #title{
-         margin-top: 5%;
+         margin-top: 10%;
          }
       </style>
       <nav class="navbar navbar-inverse">
-         <div class="container-fluid">
-            <div class="navbar-header">
-               <a class="navbar-brand" href="#" id="nav">PaperTrail</a>
+            <div class="container-fluid">
+               <div class="navbar-header">
+                  <a class="navbar-brand" href="#" id="nav">ResearchChain</a>
+               </div>
+               <ul class="nav navbar-nav">
+                  <li class="active"><a href="#" id="nav">Home</a></li>
+                  <li><a href="#" id="nav">Logout</a></li>
+               </ul>
             </div>
-            <ul class="nav navbar-nav">
-               <li class="active"><a href="#" id="nav">Home</a></li>
-            </ul>
-         </div>
-      </nav>
+         </nav>
       <center id="title">
-         <h1>Welcome to PaperTrail!</h1>
-         <p style="font-size:25px"> PaperTrail is a decentralised platform to view, upload, and peer review <br>
-            scientific research papers, to incentivise transparency and legitimacy.                
+         <h1>Welcome to ResearchChain!</h1>
+         <p style="font-size:25px"> ResearchChain is a decentralised platform to view, upload, and validate
+            scientific research papers.
          </p>
       </center>
       <div class="container" id="body">
@@ -113,26 +114,26 @@
             <div class="col-md-4">
                <center>
                   <h1 id="header">View Papers</h1>
-                  <p id="header"> View papers that have already been peer reviewed. </p>
+                  <p id="header"> View papers that have already been validated. </p>
                </center>
             </div>
             <div class="col-md-4">
                <center>
                   <h1 id="header">Upload Papers</h1>
-                  <p id="header"> Upload papers to be peer reviewed. </p>
+                  <p id="header"> Upload papers to be validated. </p>
                </center>
             </div>
             <div class="col-md-4">
                <center>
-                  <h1 id="header">Review Papers</h1>
-                  <p id="header"> Peer review papers that have recently been uploaded. </p>
+                  <h1 id="header">Validate Papers</h1>
+                  <p id="header"> Validate papers that have recently been uploaded. </p>
                </center>
             </div>
          </div>
          <div class="row">
             <div class="col-md-4">
                <center>
-                  <button type="button" id="vm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
+                  <button type="button" id="vm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
                </center>
                <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
@@ -166,7 +167,7 @@
             </div>
             <div class="col-md-4">
                <center>
-                  <button type="button" id="um" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
+                  <button type="button" id="um" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
                </center>
                <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -201,6 +202,7 @@
                               </div>
                            </form>
                            <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
+
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -219,7 +221,8 @@
                         </div>
                         <div class="modal-body">
                            <center>
-                              <h3>Submitted!</h3>
+                              <h3>Submitted! </h3>
+                              <h2 id="yourhash"></h2>
                            </center>
                            <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
                               <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
@@ -236,13 +239,13 @@
             </div>
             <div class="col-md-4">
                <center>
-                  <button type="button" id="valm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
+                  <button type="button" id="valm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
                </center>
                <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                      <div class="modal-content">
                         <div class="modal-header">
-                           <h5 class="modal-title">Peer Review Files</h5>
+                           <h5 class="modal-title">Validate Files</h5>
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                            <span aria-hidden="true">&times;</span>
                            </button>
@@ -269,7 +272,7 @@
                         </div>
                         <div class="modal-body">
                            <center>
-                              <h3>Peer Review Form</h3>
+                              <h3>Validation Form</h3>
                            </center>
                            <form>
                               <div class="form-group">
@@ -292,9 +295,8 @@
                               </center>
                               <br>
                               <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" >Done</button>
-                                 <button id="collectmoney" type="button" class="btn btn-outline-success disabled" data-dismiss="modal">Collect Token</button>
-                              </center>
-                           </form>
+                              <button id="collectmoney" type="button" class="btn btn-outline-success disabled" data-dismiss="modal">Collect Token</button></center>
+                            </form>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
@@ -325,16 +327,17 @@
                </div>
             </div>
          </div>
-         <center>
-            <h1 style="margin-top: 5%" id="acc">Current Wallet:</h1>
-         </center>
+         <center><h1 style="margin-top: 5%" id="acc">Current Wallet:</h1></center>
          <div style="margin-top: 5%;">
             <h3 id="val" style="text-align: center;">Account Value:</h3>
          </div>
          <div style="margin-top: 5%;">
             <h3 id="ttval" style="text-align: center;">TrailToken Value:</h3>
          </div>
-      </div>
+
+        </div>
+
+
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
