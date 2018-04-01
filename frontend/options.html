@@ -92,18 +92,17 @@
       <nav class="navbar navbar-inverse">
             <div class="container-fluid">
                <div class="navbar-header">
-                  <a class="navbar-brand" href="#" id="nav">ResearchChain</a>
+                  <a class="navbar-brand" href="#" id="nav">PaperTrail</a>
                </div>
                <ul class="nav navbar-nav">
                   <li class="active"><a href="#" id="nav">Home</a></li>
-                  <li><a href="#" id="nav">Logout</a></li>
                </ul>
             </div>
          </nav>
       <center id="title">
-         <h1>Welcome to ResearchChain!</h1>
-         <p style="font-size:25px"> ResearchChain is a decentralised platform to view, upload, and validate
-            scientific research papers.
+         <h1>Welcome to PaperTrail!</h1>
+         <p style="font-size:25px"> PaperTrail is a decentralised platform to view, upload, and peer review <br>
+                scientific research papers, to incentivise transparency and legitimacy.                
          </p>
       </center>
       <div class="container" id="body">
@@ -111,26 +110,26 @@
             <div class="col-md-4">
                <center>
                   <h1 id="header">View Papers</h1>
-                  <p id="header"> View papers that have already been validated. </p>
+                  <p id="header"> View papers that have already been peer reviewed. </p>
                </center>
             </div>
             <div class="col-md-4">
                <center>
                   <h1 id="header">Upload Papers</h1>
-                  <p id="header"> Upload papers to be validated. </p>
+                  <p id="header"> Upload papers to be peer reviewed. </p>
                </center>
             </div>
             <div class="col-md-4">
                <center>
-                  <h1 id="header">Validate Papers</h1>
-                  <p id="header"> Validate papers that have recently been uploaded. </p>
+                  <h1 id="header">Review Papers</h1>
+                  <p id="header"> Peer review papers that have recently been uploaded. </p>
                </center>
             </div>
          </div>
          <div class="row">
             <div class="col-md-4">
                <center>
-                  <button type="button" id="vm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
+                  <button type="button" id="vm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
                </center>
                <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
@@ -142,7 +141,7 @@
                            </button>
                         </div>
                         <div class="modal-body">
-                           <center> <button type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
+                           <center> <button type="button" id="view1" class="btn btn-primary btn-lg" style="margin-top:5%" data-toggle="modal" data-target="#latestview" data-dismiss="modal">View Latest</button> </center>
                            <br>     
                            <center>
                               <h1>Or</h1>
@@ -161,10 +160,28 @@
                      </div>
                   </div>
                </div>
+               <!-- view modal-->
+               <div class="modal fade" id="latestview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                              <h3>View Latest Paper</h3>
+                          </div>
+                          <div class="modal-body">
+                            
+                          </div>
+                          <div class="modal-footer">
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                       </div>
+                    </div>
+                </div>
+
+
             </div>
             <div class="col-md-4">
                <center>
-                  <button type="button" id="um" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
+                  <button type="button" id="um" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
                </center>
                <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -234,13 +251,13 @@
             </div>
             <div class="col-md-4">
                <center>
-                  <button type="button" id="valm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
+                  <button type="button" id="valm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#valmodal">Review</button>
                </center>
                <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                      <div class="modal-content">
                         <div class="modal-header">
-                           <h5 class="modal-title">Validate Files</h5>
+                           <h5 class="modal-title">Peer Review Files</h5>
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                            <span aria-hidden="true">&times;</span>
                            </button>
