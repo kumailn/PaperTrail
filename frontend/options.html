@@ -231,14 +231,14 @@
                                 <div class="modal-dialog">
                                   <div class="modal-content">
                                       <div class="modal-header">
-                                          <h5 class="modal-title">Success</h5>
-                                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                          
                                         </div>
                                         <div class="modal-body">
                                             <center> <h3>Submitted!</h3></center>  
                                             <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>  
                                         </div>
                                         <div class="modal-footer">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                   </div>
                                 </div>
@@ -265,14 +265,78 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                                   404 ERROR: NOT FOUND
+                                              <form>
+                                                <div class="form-group">
+                                                  <label for="validatehash">Provide a Transaction Number</label>
+                                                  <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter Transaction Number">
+                                                </div>
+                                              </form>
+                                              <center><button id="gotovalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal3" data-dismiss="modal">Go</button></center>
                                             </div>
                                             <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                
                                             </div>
                                           </div>
                                         </div>
                                       </div>
+
+                                      <!-- END OF MODAL 1 -->
+
+                                      <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                          <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <center> <h3>Validation Form</h3></center>  
+                                                       <form>
+                                                        <div class="form-group">
+                                                          <label for="comments">Comments</label>
+                                                          <input type="text" class="form-control" id="comments" aria-describedby="validcomments" placeholder="Enter Comments">
+                                                        </div>
+                                                        <center> 
+                                                        <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                                            <label class="form-check-label" for="inlineCheckbox1">Good</label>
+                                                          </div>
+                                                          <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                                            <label class="form-check-label" for="inlineCheckbox2">Revisions Needed</label>
+                                                          </div>
+                                                          <div class="form-check form-check-inline">
+                                                            <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+                                                            <label class="form-check-label" for="inlineCheckbox3">Rejected</label>
+                                                          </div>
+                                                        </center>
+                                                          <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal4" data-dismiss="modal">Done</button></center>
+                                                       </form> 
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                                  </div>
+                                            </div>
+                                          </div>
+                                        </div>
+
+                                        <!-- END OF MODAL 2 -->
+
+                                        <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <center> <h3>Submitted!</h3></center>  
+                                                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>  
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                              </div>
+                                            </div>
+                                          </div>
                 </div>
 
 
