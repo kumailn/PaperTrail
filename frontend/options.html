@@ -3,28 +3,15 @@
 <html>
     <head>
         <title> Home </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.js"
+        integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+        crossorigin="anonymous"></script>   
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> 
-        <script src="js/bootstrap.min.js"></script>
+        <script src="js/bootstrap.js"></script>
         <link rel="stylesheet" href="parstyle.css">
-
-        <script type="text/javascript">
-            $('#vm').click(function(){
-                $('#viewmodal').modal('show');
-            });
-        </script>
-
-        <script type="text/javascript">
-        $('#um').click(function(){
-            $('#uploadmodal').modal('show');
-        });        
-        </script>
-
-        <script type="text/javascript">
-        $('#valm').click(function(){
-        $('#valmodal').modal('show');
-        });        
-        </script>
+        <script src="web3.min.js"></script>
+        <script src="ipfs.js"></script>
 
     </head>
     <body>
@@ -32,6 +19,69 @@
         <div id="particles-js"></div>
         <script type="text/javascript" src="particles.js"></script>
         <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript">
+            $('#vm').click(function(){
+                $('#viewmodal').modal('show');
+            });
+
+            $('#um').click(function(){
+                $('#uploadmodal').modal('show');
+            });        
+
+            $('#valm').click(function(){
+            $('#valmodal').modal('show');
+            });        
+
+                        // Config
+            var ipfsHost    = 'localhost',
+                ipfsAPIPort = '5001',
+                ipfsWebPort = '8080',
+                web3Host    = 'http://localhost',
+                web3Port    = '7545';
+
+            var ipfs = window.IpfsApi(ipfsHost, ipfsAPIPort)
+            ipfs.swarm.peers(function(err, response) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log("IPFS - connected to " + response.Strings.length + " peers");
+                    console.log(response);
+                }
+            });
+
+                    // Globals... who cares...
+            window.ipfs = ipfs;
+            window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
+
+            $(document).ready(function() {
+                // executes when HTML-Document is loaded and DOM is ready
+                $("#ipfs-upload").click(function(){
+                    console.log("Trying to submit....");
+                    var url = $("#urlp").val();
+                    window.ipfs.add(url, function(err, result) {
+                            if (err) {
+                                console.error('Error sending file: ', err);
+                                return null;
+                            } else if (result && result[0] && result[0].Hash) {
+                                var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
+                                console.log('File: ', result[0].Hash);
+                                console.log(imageURL);
+
+                                $("#submit").toggleClass("disabled");
+                                window.ipfsHash = result[0].Hash;
+                            } else {
+                                console.error('No file for you...');
+                                return null;
+                            }
+                        });
+                });            
+            });
+
+
+            $("#aaa").click(function(){
+                console.log("works");
+            });
+        </script>
 
         <style>
         
@@ -50,7 +100,7 @@
         <center id="title">
         <h1>Welcome to ResearchChain!</h1>
 
-        <p style="font-size:25px"> ResearchChain is a decentralised platform to view, upload, and validate
+        <p style="font-size: 25px"> ResearchChain is a decentralised platform to view, upload, and validate
             scientific research papers.
         </p>
 
@@ -136,11 +186,18 @@
                                                             <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
                                                     </div>
                                                     <div class="form-group">
+                                                            <label for="urlp">Paper URL</label>
+                                                            <input type="text" class="form-control" id="urlp" aria-describedby="emailHelp" placeholder="Enter URL">
+                                                    </div>
+                                                    <div class="form-group">
                                                             <label for="uppaper">File name</label>
                                                             <input type="file" class="form-control-file" id="uppaper">
                                                     </div>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
                                             </form>
+                                            <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
+                                            <button id="submit" class="btn btn-success disabled">Submit</button>
+                                            <button id="aa" class="btn btn-fail">Submit</button>
+
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -177,13 +234,17 @@
                                           </div>
                                         </div>
                                       </div>
-
-                    
                 </div>
 
 
             </div>
         </div>
-        
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
     </body>
 </html>
