@@ -53,6 +53,8 @@
          window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
          
          $(document).ready(function() {
+            $("#collectmoney").prop("disabled", false);
+
              // executes when HTML-Document is loaded and DOM is ready
              $("#ipfs-upload").click(function(){
                  console.log("Trying to submit....");
@@ -73,9 +75,10 @@
                              return null;
                          }
                      });
-             });            
+             });
+             
          });
-         
+
          
          $("#aaa").click(function(){
              console.log("works");
@@ -142,18 +145,18 @@
                            </button>
                         </div>
                         <div class="modal-body">
-                           <center> <button type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
+                           <center> <button id="new" type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
                            <br>     
                            <center>
                               <h1>Or</h1>
                            </center>
                            <form method="post" id="box">
                               <div class="form-group">
-                                 <label for="trans" id="label2">By Transaction Number</label>
-                                 <input type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter Transaction Number">
+                                 <label for="trans" id="label2">By Hash ID</label>
+                                 <input id="fhash" type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter files hash">
                               </div>
-                              <center> <input type="submit" value="Go" class="btn btn-outline-success" name="go"> </center>
                            </form>
+                           <center> <button id="view-go" value="Go" class="btn btn-outline-success" name="go"> Go </button> </center>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -249,8 +252,8 @@
                         <div class="modal-body">
                            <form>
                               <div class="form-group">
-                                 <label for="validatehash">Provide a Transaction Number</label>
-                                 <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter Transaction Number">
+                                 <label for="validatehash">Enter a document hash</label>
+                                 <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter hash">
                               </div>
                            </form>
                            <center><button id="gotovalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal3" data-dismiss="modal">Go</button></center>
@@ -277,21 +280,22 @@
                               </div>
                               <center>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input id="good" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                                     <label class="form-check-label" for="inlineRadio1">Good</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input "needswork" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                                     <label class="form-check-label" for="inlineRadio2">Needs Revision</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                    <input id="bad" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
                                     <label class="form-check-label" for="inlineRadio3">Rejected</label>
                                  </div>
                               </center>
                               <br>
-                              <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal4" data-dismiss="modal">Done</button></center>
-                           </form>
+                              <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" >Done</button>
+                              <button id="collectmoney" type="button" class="btn btn-outline-success disabled" data-dismiss="modal">Collect Token</button></center>
+                            </form>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
@@ -323,9 +327,6 @@
             </div>
          </div>
          <center><h1 style="margin-top: 5%" id="acc">Current Wallet:</h1></center>
-         <div style="margin-top: 5%;">
-            <h3 id="acc" style="text-align: center;">Current Ether Account Address: </h3>
-         </div>
          <div style="margin-top: 5%;">
             <h3 id="val" style="text-align: center;">Account Value:</h3>
          </div>

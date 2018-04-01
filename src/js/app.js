@@ -49,7 +49,7 @@ App = {
 
     web3 = new Web3(App.web3Provider); 
     window.web3.eth.getBalance(web3.eth.accounts[0], function(err, balance){
-      $("#acc").text("Current Ether Account Address: " + web3.eth.defaultAccount);
+      $("#acc").text("Current Wallet: " + web3.eth.defaultAccount);
       $("#val").text("Account Value: " + parseFloat(window.web3.fromWei(balance, 'ether')));
       console.log(parseFloat(window.web3.fromWei(balance, 'ether')));
   });    return App.initContract();
@@ -65,7 +65,7 @@ App = {
       // Set the provider for our contract
       App.contracts.Adoption.setProvider(App.web3Provider);
     
-      // Use our contract to retrieve and mark the adopted pets
+      // Use our contract to retrieve and mark the adopted petnpm s
       return App.markAdopted();
     });
     return App.bindEvents();
@@ -74,9 +74,12 @@ App = {
   bindEvents: function() {  
     $(document).on('click', '.btn-adopt', App.handleAdopt);
     $(document).on('click', "#submit", App.handleWaste);
-    $(document).on('click', "#bb", App.handleGet);
+    $(document).on('click', "#new", App.handleGet);
     $(document).on('click', "#chain", App.handleChain);
-    $(document).on('click', "#faucet", App.handleTransferContract);
+    $(document).on('click', "#collectmoney", App.handleTransferContract);
+    $(document).on('click', "#gotocnfrmvalid", App.handleReview);
+    $(document).on('click', "#view-go", App.handleReviewChain);
+
 
     //$(document).on('click', '#sbmt', App.submitPaper);
 
@@ -176,14 +179,12 @@ App = {
         console.log(instance.getName({from: account}));
         console.log("GET Accc: " + account);
         console.log("GET Accc2: " + accounts[1]);
-        web3.eth.getTransactionReceipt("0x9199e262aaab0a6ec99558b3e9f42397c07a2bb9c6befb637643aebfb03cc32a", function(e, receipt) {
-          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
-        });
+
         return instance.getFile({from: accounts[0]});
         //return instance.getName({from: account});
       }).then(function(result) {
           console.log("Successfully retrived: " + "http://localhost:8080/ipfs/" + result);
-          var win = window.open("http://localhost:8080/ipfs/" + result, '_blank');
+          window.open("http://localhost:8080/ipfs/" + result, '_blank');
           return;
       }).catch(function(err) {
         console.log(err.message);
@@ -225,6 +226,57 @@ App = {
     });
   },
 
+  handleReviewChain: function(event) {
+    event.preventDefault();
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      var account = accounts[0];
+      var hashhh;
+      App.contracts.Review.deployed().then(function(instance) {
+        //adoptionInstance = instance;
+        // Execute adopt as a transaction by sending account
+        //return instance.getFile({from: account});
+        var found;
+        instance.getLength({from: account}).then(function(data){
+          console.log(data.c[0]);
+          for (i = 0; i < data.c[0]; i++) { 
+            instance.getHashAtIndex(i, {from: account}).then(function(rr){
+              console.log(rr + "  " + $("#fhash").val())
+              if(rr.replace(/ /g,'') == $("#fhash").val().replace(/ /g,'')){
+                console.log("match found on the blockchain");
+                window.open("http://localhost:8080/ipfs/" + rr.replace(/ /g,''), '_blank');
+                console.log(rr);
+                instance.getRatingAtIndex(i, {from: account}).then(function(rrr){
+                  console.log(rrr)
+                  instance.getCommentAtIndex(i, {from: account}).then(function(usr){
+                    console.log(usr)
+                    });
+                  });              }
+              });
+            }
+
+
+
+            
+        });
+        //console.log(instance.getPaperAtIndex(0,{from: account}));
+        //console.log(instance.getPaperAtIndex(1,{from: account}));
+
+        //console.log("GET Accc: " + account);
+        //console.log("GET Accc2: " + accounts[1]);
+
+        //return instance.getFile({from: accounts[1]});
+        //return instance.getName({from: account});
+      }).then(function(result) {
+          return;
+      }).catch(function(err) {
+        console.log(err.message);
+      });
+    });
+  },
+
   //Initialize the token contract
   initToken: function(event) {
     $.getJSON('TrailToken.json', function(data) {
@@ -237,8 +289,7 @@ App = {
 
       // Use our contract to retieve and mark the adopted pets.
     });
-    return App.getBalances();
-
+    App.getBalances();
     //return App.bindEvents();
   },
 
@@ -267,6 +318,7 @@ App = {
         console.log(err.message + " TT Error");
       });
     });
+
   },  
 
   handleTransfer: function(event) {
@@ -315,6 +367,7 @@ App = {
         //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
       }).then(function(result) {
         console.log("Successfully transfered TrailToken");
+        document.getElementById('test').click();
         return;
       }).catch(function(err) {
         console.log(err.message);
@@ -351,7 +404,57 @@ App = {
       App.contracts.Store.setProvider(App.web3Provider);
     
       // Use our contract to retrieve and mark the adopted petsinit
+      return App.initReview();
+    });
+  },
+
+  initReview: function(event){
+    $.getJSON('Review.json', function(data) {
+      // Get the necessary contract artifact file and instantiate it with truffle-contract
+      var rev = data;
+
+      App.contracts.Review = TruffleContract(rev);
+
+      // Set the provider for our contract
+      App.contracts.Review.setProvider(App.web3Provider);
+      console.log("Reviews initialized..")
+      // Use our contract to retrieve and mark the adopted petsinit
       return App.initToken();
+    });
+  },
+
+  handleReview: function(event){
+    console.log("Starting comment contract....");
+    event.preventDefault();
+    web3.eth.getAccounts(function(error, accounts) {
+      if (error) {
+        console.log(error);
+      }
+      var account = accounts[0];
+      App.contracts.Review.deployed().then(function(instance) {
+        //adoptionInstance = instance;
+        // Execute adopt as a transaction by sending account
+        var rating = 0;
+        if($('#good').is(':checked')) { rating = 3 }
+        if($('#needswork').is(':checked')) { rating = 1 }
+        if($('#bad').is(':checked')) { rating = 0 }
+
+        return instance.pushAll($("#comments").val(), rating, $("#validatehash").val(),  {from: account});
+        //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
+      }).then(function(result) {
+        console.log("Successfully added to block: " + result);
+//      document.getElementById('test').click();
+        // console.log("Latest block: " + web3.eth.getBlockNumber());
+        // web3.eth.getBlock(web3.eth.getBlockNumber(), function(data){
+        //   console.log(data);
+        // });
+
+        $("#collectmoney").toggleClass("diabled");
+        //$("#collectmoney").prop("disabled", false);
+      
+      }).catch(function(err) {
+        console.log(err.message);
+      });
     });
   }
 
