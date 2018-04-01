@@ -1,189 +1,327 @@
 <!DOCTYPE html> 
-
 <html>
-    <head>
-        <title> Home </title>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> 
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> 
-        <script src="js/bootstrap.min.js"></script>
-        <link rel="stylesheet" href="parstyle.css">
-
-        <script type="text/javascript">
-            $('#vm').click(function(){
-                $('#viewmodal').modal('show');
-            });
-        </script>
-
-        <script type="text/javascript">
-        $('#um').click(function(){
-            $('#uploadmodal').modal('show');
-        });        
-        </script>
-
-        <script type="text/javascript">
-        $('#valm').click(function(){
-        $('#valmodal').modal('show');
-        });        
-        </script>
-
-    </head>
-    <body>
-
-        <div id="particles-js"></div>
-        <script type="text/javascript" src="particles.js"></script>
-        <script type="text/javascript" src="app.js"></script>
-
-        <style>
-        
-            #body{
-                margin-top: 5%;
-            }
-
-            #title{
-                margin-top: 10%;
-            }
-
-      
-            
-        </style>
-
-        <center id="title">
-        <h1>Welcome to ResearchChain!</h1>
-
-        <p style="font-size:25px"> ResearchChain is a decentralised platform to view, upload, and validate
+   <head>
+      <title> Home </title>
+      <script
+         src="https://code.jquery.com/jquery-3.3.1.slim.js"
+         integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+         crossorigin="anonymous"></script>   
+      <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+      <script src="js/bootstrap.js"></script>
+      <link rel="stylesheet" href="parstyle.css">
+      <script src="web3.min.js"></script>
+      <script src="ipfs.js"></script>
+      <link rel="stylesheet" href="checkstyle.css">
+   </head>
+   <body>
+      <div id="particles-js"></div>
+      <script type="text/javascript" src="particles.js"></script>
+      <script type="text/javascript" src="app.js"></script>
+      <script type="text/javascript">
+         $('#vm').click(function(){
+             $('#viewmodal').modal('show');
+         });
+         
+         $('#um').click(function(){
+             $('#uploadmodal').modal('show');
+         });        
+         
+         $('#valm').click(function(){
+         $('#valmodal').modal('show');
+         });         
+         
+                     // Config
+         var ipfsHost    = 'localhost',
+             ipfsAPIPort = '5001',
+             ipfsWebPort = '8080',
+             web3Host    = 'http://localhost',
+             web3Port    = '7545';
+         
+         var ipfs = window.IpfsApi(ipfsHost, ipfsAPIPort)
+         ipfs.swarm.peers(function(err, response) {
+             if (err) {
+                 console.error(err);
+             } else {
+                 console.log("IPFS - connected to " + response.Strings.length + " peers");
+                 console.log(response);
+             }
+         });
+         
+                 // Globals... who cares...
+         window.ipfs = ipfs;
+         window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
+         
+         $(document).ready(function() {
+             // executes when HTML-Document is loaded and DOM is ready
+             $("#ipfs-upload").click(function(){
+                 console.log("Trying to submit....");
+                 var url = $("#urlp").val();
+                 window.ipfs.add(url, function(err, result) {
+                         if (err) {
+                             console.error('Error sending file: ', err);
+                             return null;
+                         } else if (result && result[0] && result[0].Hash) {
+                             var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
+                             console.log('File: ', result[0].Hash);
+                             console.log(imageURL);
+         
+                             $("#submit").toggleClass("disabled");
+                             window.ipfsHash = result[0].Hash;
+                         } else {
+                             console.error('No file for you...');
+                             return null;
+                         }
+                     });
+             });            
+         });
+         
+         
+         $("#aaa").click(function(){
+             console.log("works");
+         });
+      </script>
+      <style>
+         #body{
+         margin-top: 5%;
+         }
+         #title{
+         margin-top: 10%;
+         }
+      </style>
+      <nav class="navbar navbar-inverse">
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="#" id="nav">ResearchChain</a>
+            </div>
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="#" id="nav">Home</a></li>
+               <li><a href="#" id="nav">Logout</a></li>
+            </ul>
+         </div>
+      </nav>
+      <center id="title">
+         <h1>Welcome to ResearchChain!</h1>
+         <p style="font-size: 25px"> ResearchChain is a decentralised platform to view, upload, and validate
             scientific research papers.
-        </p>
-
-        </center>
-
-        <div class="container" id="body">
-            <div class="row">
-                <div class="col-md-4">
-                    <center> 
-                    <h1 id="header">View Papers</h1>
-                    <p id="header"> View papers that have already been validated. </p>
-                    </center>
-                </div>
-                <div class="col-md-4">
-                    <center> 
-                    <h1 id="header">Upload Papers</h1>
-                    <p id="header"> Upload papers to be validated. </p>
-                    </center>
-                </div>
-                <div class="col-md-4">          
-                    <center> 
-                    <h1 id="header">Validate Papers</h1>
-                    <p id="header"> Validate papers that have recently been uploaded. </p>
-                    </center>
-                </div>
+         </p>
+      </center>
+      <div class="container" id="body">
+         <div class="row">
+            <div class="col-md-4">
+               <center>
+                  <h1 id="header">View Papers</h1>
+                  <p id="header"> View papers that have already been validated. </p>
+               </center>
             </div>
-
-            <div class="row">
-                
-                <div class="col-md-4">
-                    
-                    <center>
-                    <button type="button" id="vm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
-                    </center>
-
-                    <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">View Files</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body" id="pdfmodal">
-                                  <div style="text-align: center;">
-                                          <iframe src="http://www.cs.yale.edu/homes/aspnes/classes/202/notes.pdf"  
-                                          style="width:750px; height:500px;" frameborder="0"></iframe>
-                                  </div> 
-                          </div>
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                          </div>
+            <div class="col-md-4">
+               <center>
+                  <h1 id="header">Upload Papers</h1>
+                  <p id="header"> Upload papers to be validated. </p>
+               </center>
+            </div>
+            <div class="col-md-4">
+               <center>
+                  <h1 id="header">Validate Papers</h1>
+                  <p id="header"> Validate papers that have recently been uploaded. </p>
+               </center>
+            </div>
+         </div>
+         <div class="row">
+            <div class="col-md-4">
+               <center>
+                  <button type="button" id="vm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#viewmodal">View</button>
+               </center>
+               <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title">View Files</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
                         </div>
-                      </div>
-                    </div>
-
-
-                </div>
-                <div class="col-md-4">
-                        
-                        <center>
-                        <button type="button" id="um" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
-                        </center>
-
-                        <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h5 class="modal-title">Upload Files</h5>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                            <form>
-                                                    <div class="form-group">
-                                                      <label for="titleofpaper">Title of Paper</label>
-                                                      <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Title">
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <label for="desofpaper">Description of Paper</label>
-                                                            <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
-                                                    </div>
-                                                    <div class="form-group">
-                                                            <label for="uppaper">File name</label>
-                                                            <input type="file" class="form-control-file" id="uppaper">
-                                                    </div>
-                                                    <button type="submit" class="btn btn-primary">Submit</button>
-                                            </form>
-                                    </div>
-                                    <div class="modal-footer">
-                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                  </div>
-                                </div>
+                        <div class="modal-body">
+                           <center> <button type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
+                           <br>     
+                           <center>
+                              <h1>Or</h1>
+                           </center>
+                           <form method="post" id="box">
+                              <div class="form-group">
+                                 <label for="trans" id="label2">By Transaction Number</label>
+                                 <input type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter Transaction Number">
                               </div>
-                
-                    </div>
-
-
-
-                <div class="col-md-4">
-                    
-                        <center>
-                                <button type="button" id="valm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
-                                </center>
-        
-                                <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                          <div class="modal-content">
-                                            <div class="modal-header">
-                                              <h5 class="modal-title">Validate Files</h5>
-                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                              </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                   TODO TODO TODO TODO
-                                            </div>
-                                            <div class="modal-footer">
-                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                          </div>
-                                        </div>
-                                      </div>
-
-                    
-                </div>
-
-
+                              <center> <input type="submit" value="Go" class="btn btn-outline-success" name="go"> </center>
+                           </form>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
             </div>
-        </div>
-        
-    </body>
+            <div class="col-md-4">
+               <center>
+                  <button type="button" id="um" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#uploadmodal">Upload</button>
+               </center>
+               <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title">Upload Files</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                           <form>
+                              <div class="form-group">
+                                 <label for="titleofpaper">Title of Paper</label>
+                                 <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Title">
+                              </div>
+                              <div class="form-group">
+                                 <label for="desofpaper">Description of Paper</label>
+                                 <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
+                              </div>
+                              <div class="form-group">
+                                 <label for="urlp">Paper URL</label>
+                                 <input type="text" class="form-control" id="urlp" aria-describedby="emailHelp" placeholder="Enter URL">
+                              </div>
+                              <div class="form-group">
+                                 <label for="uppaper">File name</label>
+                                 <input type="file" class="form-control-file" id="uppaper">
+                              </div>
+                           </form>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                           <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
+                           <button id="submit" class="btn btn-success disabled">Submit</button>
+                           <button id="cnfrm" type="button" class="btn btn-fail" data-toggle="modal" data-target="#modal2" data-dismiss="modal">Test</button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- END OF MODAL 1......................................... --> 
+               <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                           <center>
+                              <h3>Submitted!</h3>
+                           </center>
+                           <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                           </svg>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- END OF MODAL 2......................................... --> 
+            </div>
+            <div class="col-md-4">
+               <center>
+                  <button type="button" id="valm" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
+               </center>
+               <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title">Validate Files</h5>
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                           <span aria-hidden="true">&times;</span>
+                           </button>
+                        </div>
+                        <div class="modal-body">
+                           <form>
+                              <div class="form-group">
+                                 <label for="validatehash">Provide a Transaction Number</label>
+                                 <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter Transaction Number">
+                              </div>
+                           </form>
+                           <center><button id="gotovalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal3" data-dismiss="modal">Go</button></center>
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- END OF MODAL 1 -->
+               <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                           <center>
+                              <h3>Validation Form</h3>
+                           </center>
+                           <form>
+                              <div class="form-group">
+                                 <label for="comments">Comments</label>
+                                 <input type="text" class="form-control" id="comments" aria-describedby="validcomments" placeholder="Enter Comments">
+                              </div>
+                              <center>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <label class="form-check-label" for="inlineRadio1">Good</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <label class="form-check-label" for="inlineRadio2">Needs Revision</label>
+                                 </div>
+                                 <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                    <label class="form-check-label" for="inlineRadio3">Rejected</label>
+                                 </div>
+                              </center>
+                              <br>
+                              <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal4" data-dismiss="modal">Done</button></center>
+                           </form>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <!-- END OF MODAL 2 -->
+               <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                     <div class="modal-content">
+                        <div class="modal-header">
+                        </div>
+                        <div class="modal-body">
+                           <center>
+                              <h3>Submitted!</h3>
+                           </center>
+                           <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                              <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/>
+                              <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                           </svg>
+                        </div>
+                        <div class="modal-footer">
+                           <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <!-- Include all compiled plugins (below), or include individual files as needed -->
+      <script src="js/bootstrap.min.js"></script>
+      <script src="js/web3.min.js"></script>
+      <script src="js/truffle-contract.js"></script>
+      <script src="js/app.js"></script>
+   </body>
 </html>
