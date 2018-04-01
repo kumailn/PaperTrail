@@ -30,7 +30,7 @@
          $('#valm').click(function(){
          $('#valmodal').modal('show');
          });  
-     
+         
          // Config
          var ipfsHost    = 'localhost',
              ipfsAPIPort = '5001',
@@ -53,6 +53,8 @@
          window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
          
          $(document).ready(function() {
+            $("#collectmoney").prop("disabled", false);
+         
              // executes when HTML-Document is loaded and DOM is ready
              $("#ipfs-upload").click(function(){
                  console.log("Trying to submit....");
@@ -73,7 +75,8 @@
                              return null;
                          }
                      });
-             });            
+             });
+             
          });
          
          
@@ -86,23 +89,23 @@
          margin-top: 5%;
          }
          #title{
-         margin-top: 10%;
+         margin-top: 5%;
          }
       </style>
       <nav class="navbar navbar-inverse">
-            <div class="container-fluid">
-               <div class="navbar-header">
-                  <a class="navbar-brand" href="#" id="nav">PaperTrail</a>
-               </div>
-               <ul class="nav navbar-nav">
-                  <li class="active"><a href="#" id="nav">Home</a></li>
-               </ul>
+         <div class="container-fluid">
+            <div class="navbar-header">
+               <a class="navbar-brand" href="#" id="nav">PaperTrail</a>
             </div>
-         </nav>
+            <ul class="nav navbar-nav">
+               <li class="active"><a href="#" id="nav">Home</a></li>
+            </ul>
+         </div>
+      </nav>
       <center id="title">
          <h1>Welcome to PaperTrail!</h1>
          <p style="font-size:25px"> PaperTrail is a decentralised platform to view, upload, and peer review <br>
-                scientific research papers, to incentivise transparency and legitimacy.                
+            scientific research papers, to incentivise transparency and legitimacy.                
          </p>
       </center>
       <div class="container" id="body">
@@ -141,18 +144,18 @@
                            </button>
                         </div>
                         <div class="modal-body">
-                           <center> <button type="button" id="view1" class="btn btn-primary btn-lg" style="margin-top:5%" data-toggle="modal" data-target="#latestview" data-dismiss="modal">View Latest</button> </center>
+                           <center> <button id="new" type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
                            <br>     
                            <center>
                               <h1>Or</h1>
                            </center>
                            <form method="post" id="box">
                               <div class="form-group">
-                                 <label for="trans" id="label2">By Transaction Number</label>
-                                 <input type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter Transaction Number">
+                                 <label for="trans" id="label2">By Hash ID</label>
+                                 <input id="fhash" type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter files hash">
                               </div>
-                              <center> <input type="submit" value="Go" class="btn btn-outline-success" name="go"> </center>
                            </form>
+                           <center> <button id="view-go" value="Go" class="btn btn-outline-success" name="go"> Go </button> </center>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -160,24 +163,6 @@
                      </div>
                   </div>
                </div>
-               <!-- view modal-->
-               <div class="modal fade" id="latestview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                       <div class="modal-content">
-                          <div class="modal-header">
-                              <h3>View Latest Paper</h3>
-                          </div>
-                          <div class="modal-body">
-                            
-                          </div>
-                          <div class="modal-footer">
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                       </div>
-                    </div>
-                </div>
-
-
             </div>
             <div class="col-md-4">
                <center>
@@ -214,14 +199,14 @@
                                  <label for="uppaper">File name</label>
                                  <input type="file" class="form-control-file" id="uppaper">
                               </div>
-                              <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                            </form>
+                           <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                            <button id="submit" class="btn btn-success disabled">Submit</button>
                            <button id="chain" class="btn btn-fail">Chain</button>
-                           <button id="test" type="button" class="btn btn-fail" data-toggle="modal" data-target="#modal2" data-dismiss="modal">Test</button>
+                           <button style="display: none;" id="test" type="button" class="btn btn-fail" data-toggle="modal" data-target="#modal2" data-dismiss="modal">Test</button>
                         </div>
                      </div>
                   </div>
@@ -251,7 +236,7 @@
             </div>
             <div class="col-md-4">
                <center>
-                  <button type="button" id="valm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#valmodal">Review</button>
+                  <button type="button" id="valm" class="btn btn-outline-light btn-lg" data-toggle="modal" data-target="#valmodal">Validate</button>
                </center>
                <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
@@ -265,8 +250,8 @@
                         <div class="modal-body">
                            <form>
                               <div class="form-group">
-                                 <label for="validatehash">Provide a Transaction Number</label>
-                                 <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter Transaction Number">
+                                 <label for="validatehash">Enter a document hash</label>
+                                 <input type="text" class="form-control" id="validatehash" aria-describedby="validhash" placeholder="Enter hash">
                               </div>
                            </form>
                            <center><button id="gotovalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal3" data-dismiss="modal">Go</button></center>
@@ -284,7 +269,7 @@
                         </div>
                         <div class="modal-body">
                            <center>
-                              <h3>Validation Form</h3>
+                              <h3>Peer Review Form</h3>
                            </center>
                            <form>
                               <div class="form-group">
@@ -293,20 +278,22 @@
                               </div>
                               <center>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                                    <input id="good" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
                                     <label class="form-check-label" for="inlineRadio1">Good</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+                                    <input "needswork" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
                                     <label class="form-check-label" for="inlineRadio2">Needs Revision</label>
                                  </div>
                                  <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+                                    <input id="bad" class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
                                     <label class="form-check-label" for="inlineRadio3">Rejected</label>
                                  </div>
                               </center>
                               <br>
-                              <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#modal4" data-dismiss="modal">Done</button></center>
+                              <center><button id="gotocnfrmvalid" type="button" class="btn btn-outline-success" >Done</button>
+                                 <button id="collectmoney" type="button" class="btn btn-outline-success disabled" data-dismiss="modal">Collect Token</button>
+                              </center>
                            </form>
                         </div>
                         <div class="modal-footer">
@@ -338,20 +325,16 @@
                </div>
             </div>
          </div>
-         <center><h1 style="margin-top: 5%" id="acc">Current Wallet:</h1></center>
-         <div style="margin-top: 5%;">
-            <h3 id="acc" style="text-align: center;">Current Ether Account Address: </h3>
-         </div>
+         <center>
+            <h1 style="margin-top: 5%" id="acc">Current Wallet:</h1>
+         </center>
          <div style="margin-top: 5%;">
             <h3 id="val" style="text-align: center;">Account Value:</h3>
          </div>
          <div style="margin-top: 5%;">
             <h3 id="ttval" style="text-align: center;">TrailToken Value:</h3>
          </div>
-
-        </div>
-
-
+      </div>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
       <!-- Include all compiled plugins (below), or include individual files as needed -->
