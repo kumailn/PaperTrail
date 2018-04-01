@@ -148,7 +148,13 @@ App = {
         return instance.save(window.ipfsHash, "123", $("#name1").val(), {from: account});
         //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
       }).then(function(result) {
-        console.log("Successfully added to block");
+        console.log("Successfully added to block: " + result);
+        document.getElementById('test').click();
+        // console.log("Latest block: " + web3.eth.getBlockNumber());
+        // web3.eth.getBlock(web3.eth.getBlockNumber(), function(data){
+        //   console.log(data);
+        // });
+      
         return;
       }).catch(function(err) {
         console.log(err.message);
@@ -170,8 +176,10 @@ App = {
         console.log(instance.getName({from: account}));
         console.log("GET Accc: " + account);
         console.log("GET Accc2: " + accounts[1]);
-
-        return instance.getFile({from: accounts[1]});
+        web3.eth.getTransactionReceipt("0x9199e262aaab0a6ec99558b3e9f42397c07a2bb9c6befb637643aebfb03cc32a", function(e, receipt) {
+          const decodedLogs = abiDecoder.decodeLogs(receipt.logs);
+        });
+        return instance.getFile({from: accounts[0]});
         //return instance.getName({from: account});
       }).then(function(result) {
           console.log("Successfully retrived: " + "http://localhost:8080/ipfs/" + result);
@@ -194,9 +202,15 @@ App = {
         //adoptionInstance = instance;
         // Execute adopt as a transaction by sending account
         //return instance.getFile({from: account});
-        console.log(instance.getLen({from: account}));
-        console.log(instance.getPaperAtIndex(0,{from: account}));
-        console.log(instance.getPaperAtIndex(1,{from: account}));
+        instance.getLen({from: account}).then(function(data){
+          console.log(data.c[0]);
+          for (i = 0; i < data.c[0]; i++) { 
+            instance.getPaperAtIndex(i, {from: account}).then(function(addr){
+              console.log(addr);
+            });          }
+        });
+        //console.log(instance.getPaperAtIndex(0,{from: account}));
+        //console.log(instance.getPaperAtIndex(1,{from: account}));
 
         //console.log("GET Accc: " + account);
         //console.log("GET Accc2: " + accounts[1]);

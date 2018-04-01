@@ -16,6 +16,7 @@ body{
   
   #body{
     position: relative;
+    font-size: 20px;
     /*background-color: white;*/
   }
 
@@ -29,5 +30,25 @@ body{
   }
 
   #label{
+    color: white;
+  }
+
+  #label2{
+    color: black;
+  }
+
+  #nav{
+    color: white;
+  }
+
+  #acc{
+    color: white;
+  }
+
+  #val{
+    color: white;
+  }
+
+  #ttval{
     color: white;
   }
