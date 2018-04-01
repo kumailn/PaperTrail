@@ -96,7 +96,6 @@
                </div>
                <ul class="nav navbar-nav">
                   <li class="active"><a href="#" id="nav">Home</a></li>
-                  <li><a href="#" id="nav">Logout</a></li>
                </ul>
             </div>
          </nav>
@@ -142,7 +141,7 @@
                            </button>
                         </div>
                         <div class="modal-body">
-                           <center> <button type="button" class="btn btn-primary btn-lg" style="margin-top:5%">View Latest</button> </center>
+                           <center> <button type="button" id="view1" class="btn btn-primary btn-lg" style="margin-top:5%" data-toggle="modal" data-target="#latestview" data-dismiss="modal">View Latest</button> </center>
                            <br>     
                            <center>
                               <h1>Or</h1>
@@ -161,6 +160,24 @@
                      </div>
                   </div>
                </div>
+               <!-- view modal-->
+               <div class="modal fade" id="latestview" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                       <div class="modal-content">
+                          <div class="modal-header">
+                              <h3>View Latest Paper</h3>
+                          </div>
+                          <div class="modal-body">
+                            
+                          </div>
+                          <div class="modal-footer">
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                       </div>
+                    </div>
+                </div>
+
+
             </div>
             <div class="col-md-4">
                <center>
