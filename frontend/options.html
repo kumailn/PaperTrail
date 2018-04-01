@@ -11,6 +11,7 @@
       <link rel="stylesheet" href="parstyle.css">
       <script src="web3.min.js"></script>
       <script src="ipfs.js"></script>
+      <script src="https://unpkg.com/tippy.js@2.4.1/dist/tippy.all.min.js"></script>
       <link rel="stylesheet" href="checkstyle.css">
    </head>
    <body>
@@ -28,9 +29,9 @@
          
          $('#valm').click(function(){
          $('#valmodal').modal('show');
-         });         
+         });        
          
-                     // Config
+         // Config
          var ipfsHost    = 'localhost',
              ipfsAPIPort = '5001',
              ipfsWebPort = '8080',
@@ -47,7 +48,7 @@
              }
          });
          
-                 // Globals... who cares...
+         //Global vars
          window.ipfs = ipfs;
          window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
          
@@ -88,20 +89,9 @@
          margin-top: 10%;
          }
       </style>
-      <nav class="navbar navbar-inverse">
-         <div class="container-fluid">
-            <div class="navbar-header">
-               <a class="navbar-brand" href="#" id="nav">ResearchChain</a>
-            </div>
-            <ul class="nav navbar-nav">
-               <li class="active"><a href="#" id="nav">Home</a></li>
-               <li><a href="#" id="nav">Logout</a></li>
-            </ul>
-         </div>
-      </nav>
       <center id="title">
          <h1>Welcome to ResearchChain!</h1>
-         <p style="font-size: 25px"> ResearchChain is a decentralised platform to view, upload, and validate
+         <p style="font-size:25px"> ResearchChain is a decentralised platform to view, upload, and validate
             scientific research papers.
          </p>
       </center>
@@ -185,6 +175,10 @@
                                  <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
                               </div>
                               <div class="form-group">
+                                 <label for="name1">Name</label>
+                                 <input type="text" class="form-control" id="name1" aria-describedby="emailHelp" placeholder="Enter Name">
+                              </div>
+                              <div class="form-group">
                                  <label for="urlp">Paper URL</label>
                                  <input type="text" class="form-control" id="urlp" aria-describedby="emailHelp" placeholder="Enter URL">
                               </div>
@@ -192,18 +186,19 @@
                                  <label for="uppaper">File name</label>
                                  <input type="file" class="form-control-file" id="uppaper">
                               </div>
+                              <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                            </form>
                         </div>
                         <div class="modal-footer">
                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                           <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                            <button id="submit" class="btn btn-success disabled">Submit</button>
-                           <button id="cnfrm" type="button" class="btn btn-fail" data-toggle="modal" data-target="#modal2" data-dismiss="modal">Test</button>
+                           <button id="chain" class="btn btn-fail">Chain</button>
+                           <button id="test" type="button" class="btn btn-fail" data-toggle="modal" data-target="#modal2" data-dismiss="modal">Test</button>
                         </div>
                      </div>
                   </div>
                </div>
-               <!-- END OF MODAL 1......................................... --> 
+               <!-- Modal 2 -->
                <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                      <div class="modal-content">
@@ -224,7 +219,7 @@
                      </div>
                   </div>
                </div>
-               <!-- END OF MODAL 2......................................... --> 
+               <!-- End -->
             </div>
             <div class="col-md-4">
                <center>
@@ -314,6 +309,16 @@
                   </div>
                </div>
             </div>
+         </div>
+         <center><h1 style="margin-top: 5%" id="acc">Current Wallet:</h1></center>
+         <div style="margin-top: 5%;">
+            <h3 id="acc" style="text-align: center;">Current Ether Account Address: </h3>
+         </div>
+         <div style="margin-top: 5%;">
+            <h3 id="val" style="text-align: center;">Account Value:</h3>
+         </div>
+         <div style="margin-top: 5%;">
+            <h3 id="ttval" style="text-align: center;">TrailToken Value:</h3>
          </div>
       </div>
       <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
