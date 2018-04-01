@@ -155,27 +155,34 @@
             });
         }
 
-        var addFile = function(event) {
-            var input = event.target;
-        
-            var reader = new FileReader();
-            reader.onload = function(){
-              var dataURL = reader.result;
-              const ipfs = window.IpfsApi('localhost', 3000)
-              const buf = buffer.Buffer(dataURL)
-              window.ipfs.add(buf, (err, result) => {
-                if (err){
-                  console.log(err)
-                  return
+        function addFile(url) {
+            window.ipfs.add(url, function(err, result) {
+                if (err) {
+                    console.error('Error sending file: ', err);
+                    return null;
+                } else if (result && result[0] && result[0].Hash) {
+                    var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
+                    console.log('File: ', result[0].Hash);
+                    console.log(imageURL);
+                } else {
+                    console.error('No file for you...');
+                    return null;
                 }
-                let url = `https://ipfs.io/ipfs/${result[0].hash}`
-                console.log(`Url --> ${url}`)
-              })
-              var output = document.getElementById('output');
-              output.src = dataURL;
-            };
-            //reader.readAsDataURL(input.files[0]);
-          };
+            })};
+
+        function decodeHex(transactionid){
+            return (web3.toAscii(transactionid));
+        }
+
+        function getBlock(num){
+            web3.eth.getBlock(num, function(error, result){
+                if(!error)
+                    console.log(JSON.stringify(result));
+                else
+                    console.error(error);
+            })
+        }
+
 
     </script>
 </head>

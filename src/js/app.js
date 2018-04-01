@@ -8,16 +8,16 @@ App = {
       var petsRow = $('#petsRow');
       var petTemplate = $('#petTemplate');
 
-      for (i = 0; i < data.length; i ++) {
-        petTemplate.find('.panel-title').text(data[i].name);
-        petTemplate.find('img').attr('src', data[i].picture);
-        petTemplate.find('.pet-breed').text(data[i].breed);
-        petTemplate.find('.pet-age').text(data[i].age);
-        petTemplate.find('.pet-location').text(data[i].location);
-        petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
+      // for (i = 0; i < data.length; i ++) {
+      //   petTemplate.find('.panel-title').text(data[i].name);
+      //   petTemplate.find('img').attr('src', data[i].picture);
+      //   petTemplate.find('.pet-breed').text(data[i].breed);
+      //   petTemplate.find('.pet-age').text(data[i].age);
+      //   petTemplate.find('.pet-location').text(data[i].location);
+      //   petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
 
-        petsRow.append(petTemplate.html());
-      }
+      //   petsRow.append(petTemplate.html());
+      // }
     });
 
     return App.initWeb3();
@@ -53,9 +53,13 @@ App = {
 
   bindEvents: function() {
     $(document).on('click', '.btn-adopt', App.handleAdopt);
-    $(document).on('click', ".paper-upload", App.handleWaste);
-    $(document).on('click', ".paper-get", App.handleGet);
+    $(document).on('click', "#submit", App.handleWaste);
+    $(document).on('click', "#aa", App.handleGet);
+    //$(document).on('click', "#aa", App.testFun);
 
+    //$(document).on('click', '#sbmt', App.submitPaper);
+
+    //console.log($("#sbmt").text());
 
     return App.init2();
   },
@@ -76,6 +80,10 @@ App = {
     }).catch(function(err) {
       console.log(err.message);
     });
+  },
+
+  testFun: function(event) {
+    console.log("tesstttt")
   },
 
   handleAdopt: function(event) {
@@ -116,7 +124,8 @@ App = {
       App.contracts.Store.deployed().then(function(instance) {
         //adoptionInstance = instance;
         // Execute adopt as a transaction by sending account
-        return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
+        return instance.save(window.ipfsHash, "123", "Kumail", {from: account});
+        //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
       }).then(function(result) {
         console.log("Successfully added to block");
         return;
@@ -147,6 +156,23 @@ App = {
         console.log(err.message);
       });
     });
+  },
+
+  submitPaper: function(event) {
+    var url = $("#submit").text();
+    window.ipfs.add(url, function(err, result) {
+      if (err) {
+          console.error('Error sending file: ', err);
+          return null;
+      } else if (result && result[0] && result[0].Hash) {
+          var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
+          console.log('File: ', result[0].Hash);
+          console.log(imageURL);
+      } else {
+          console.error('No file for you...');
+          return null;
+      }
+  });
   },
 
   init2: function(event){

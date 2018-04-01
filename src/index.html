@@ -1,69 +1,250 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Pete's Pet Shop</title>
+<!DOCTYPE html> 
 
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+<html>
+    <head>
+        <title> Home </title>
+        <script
+        src="https://code.jquery.com/jquery-3.3.1.slim.js"
+        integrity="sha256-fNXJFIlca05BIO2Y5zh1xrShK3ME+/lYZ0j+ChxX2DA="
+        crossorigin="anonymous"></script>   
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css"> 
+        <script src="js/bootstrap.js"></script>
+        <link rel="stylesheet" href="parstyle.css">
+        <script src="web3.min.js"></script>
+        <script src="ipfs.js"></script>
 
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-8 col-sm-push-2">
-          <h1 class="text-center">Pete's Pet Shop</h1>
-          <hr/>
-          <br/>
+    </head>
+    <body>
+
+        <div id="particles-js"></div>
+        <script type="text/javascript" src="particles.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+        <script type="text/javascript">
+            $('#vm').click(function(){
+                $('#viewmodal').modal('show');
+            });
+
+            $('#um').click(function(){
+                $('#uploadmodal').modal('show');
+            });        
+
+            $('#valm').click(function(){
+            $('#valmodal').modal('show');
+            });        
+
+                        // Config
+            var ipfsHost    = 'localhost',
+                ipfsAPIPort = '5001',
+                ipfsWebPort = '8080',
+                web3Host    = 'http://localhost',
+                web3Port    = '7545';
+
+            var ipfs = window.IpfsApi(ipfsHost, ipfsAPIPort)
+            ipfs.swarm.peers(function(err, response) {
+                if (err) {
+                    console.error(err);
+                } else {
+                    console.log("IPFS - connected to " + response.Strings.length + " peers");
+                    console.log(response);
+                }
+            });
+
+                    // Globals... who cares...
+            window.ipfs = ipfs;
+            window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
+
+            $(document).ready(function() {
+                // executes when HTML-Document is loaded and DOM is ready
+                $("#ipfs-upload").click(function(){
+                    console.log("Trying to submit....");
+                    var url = $("#urlp").val();
+                    window.ipfs.add(url, function(err, result) {
+                            if (err) {
+                                console.error('Error sending file: ', err);
+                                return null;
+                            } else if (result && result[0] && result[0].Hash) {
+                                var imageURL = window.ipfsDataHost + "/" + result[0].Hash;
+                                console.log('File: ', result[0].Hash);
+                                console.log(imageURL);
+
+                                $("#submit").toggleClass("disabled");
+                                window.ipfsHash = result[0].Hash;
+                            } else {
+                                console.error('No file for you...');
+                                return null;
+                            }
+                        });
+                });            
+            });
+
+
+            $("#aaa").click(function(){
+                console.log("works");
+            });
+        </script>
+
+        <style>
+        
+            #body{
+                margin-top: 5%;
+            }
+
+            #title{
+                margin-top: 10%;
+            }
+
+      
+            
+        </style>
+
+        <center id="title">
+        <h1>Welcome to ResearchChain!</h1>
+
+        <p> ResearchChain is a decentralised platform to view, upload, and validate
+            scientific research papers.
+        </p>
+
+        </center>
+
+        <div class="container" id="body">
+            <div class="row">
+                <div class="col-md-4">
+                    <center> 
+                    <h1 id="header">View Papers</h1>
+                    <p id="header"> View papers that have already been validated. </p>
+                    </center>
+                </div>
+                <div class="col-md-4">
+                    <center> 
+                    <h1 id="header">Upload Papers</h1>
+                    <p id="header"> Upload papers to be validated. </p>
+                    </center>
+                </div>
+                <div class="col-md-4">          
+                    <center> 
+                    <h1 id="header">Validate Papers</h1>
+                    <p id="header"> Validate papers that have recently been uploaded. </p>
+                    </center>
+                </div>
+            </div>
+
+            <div class="row">
+                
+                <div class="col-md-4">
+                    
+                    <center>
+                    <button type="button" id="vm" class="btn btn-outline-info" data-toggle="modal" data-target="#viewmodal">View</button>
+                    </center>
+
+                    <div class="modal fade" id="viewmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">View Files</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body" id="pdfmodal">
+                                  <div style="text-align: center;">
+                                          <iframe src="http://www.cs.yale.edu/homes/aspnes/classes/202/notes.pdf"  
+                                          style="width:750px; height:500px;" frameborder="0"></iframe>
+                                  </div> 
+                          </div>
+                          <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-4">
+                        
+                        <center>
+                        <button type="button" id="um" class="btn btn-outline-info" data-toggle="modal" data-target="#uploadmodal">Upload</button>
+                        </center>
+
+                        <div class="modal fade" id="uploadmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title">Upload Files</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                            <form>
+                                                    <div class="form-group">
+                                                      <label for="titleofpaper">Title of Paper</label>
+                                                      <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Title">
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label for="desofpaper">Description of Paper</label>
+                                                            <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label for="urlp">Paper URL</label>
+                                                            <input type="text" class="form-control" id="urlp" aria-describedby="emailHelp" placeholder="Enter URL">
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label for="uppaper">File name</label>
+                                                            <input type="file" class="form-control-file" id="uppaper">
+                                                    </div>
+                                            </form>
+                                            <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
+                                            <button id="submit" class="btn btn-success disabled">Submit</button>
+                                            <button id="aa" class="btn btn-fail">Submit</button>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                
+                    </div>
+
+
+
+                <div class="col-md-4">
+                    
+                        <center>
+                                <button type="button" id="valm" class="btn btn-outline-info" data-toggle="modal" data-target="#valmodal">Validate</button>
+                                </center>
+        
+                                <div class="modal fade" id="valmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title">Validate Files</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                   TODO TODO TODO TODO
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                </div>
+
+
+            </div>
         </div>
-      </div>
-
-      <div id="petsRow" class="row">
-        <!-- PETS LOAD HERE -->
-      </div>
-    </div>
-
-    <div id="petTemplate" style="display: none;">
-      <div class="col-sm-6 col-md-4 col-lg-3">
-        <div class="panel panel-default panel-pet">
-          <div class="panel-heading">
-            <h3 class="panel-title">Scrappy</h3>
-          </div>
-          <div class="panel-body">
-            <img alt="140x140" data-src="holder.js/140x140" class="img-rounded img-center" style="width: 100%;" src="https://animalso.com/wp-content/uploads/2017/01/Golden-Retriever_6.jpg" data-holder-rendered="true">
-            <br/><br/>
-            <strong>Breed</strong>: <span class="pet-breed">Golden Retriever</span><br/>
-            <strong>Age</strong>: <span class="pet-age">3</span><br/>
-            <strong>Location</strong>: <span class="pet-location">Warren, MI</span><br/><br/>
-            <button class="btn btn-default btn-adopt" type="button" data-id="0">Adopt</button>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-      <a href="indexe.html">
-          <button class="btn btn-lg" style="margin-bottom: 10%">go to ipfs</button>
-      </a>
-      <button class="btn paper-upload btn-lg" style="margin-bottom: 10%">make an ipfs transaction</button>
-      <button class="btn paper-get btn-lg" style="margin-bottom: 10%">get ipfs file</button>
-    </div>
-
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
-  </body>
+    </body>
 </html>

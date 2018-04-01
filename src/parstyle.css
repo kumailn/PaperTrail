@@ -1,0 +1,33 @@
+body{
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+#particles-js {
+    background-color: lightblue;
+    position:fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    z-index:0; 
+  }
+  
+  #body{
+    position: relative;
+    /*background-color: white;*/
+  }
+
+  #header{
+    color: white;
+  }
+
+  #title{
+    color: white;
+    position: relative;
+  }
+
+  #label{
+    color: white;
+  }
