@@ -14,5 +14,9 @@
   "license": "ISC",
   "devDependencies": {
     "lite-server": "^2.3.0"
+  },
+  "dependencies": {
+    "abi-decoder": "^1.1.0",
+    "zeppelin-solidity": "^1.8.0"
   }
 }

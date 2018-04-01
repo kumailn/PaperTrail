@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="parstyle.css">
         <script src="web3.min.js"></script>
         <script src="ipfs.js"></script>
+        <script src="https://unpkg.com/tippy.js@2.4.1/dist/tippy.all.min.js"></script>
+
 
     </head>
     <body>
@@ -32,7 +34,7 @@
             $('#valmodal').modal('show');
             });        
 
-                        // Config
+            // Config
             var ipfsHost    = 'localhost',
                 ipfsAPIPort = '5001',
                 ipfsWebPort = '8080',
@@ -49,7 +51,7 @@
                 }
             });
 
-                    // Globals... who cares...
+            //Global vars
             window.ipfs = ipfs;
             window.ipfsDataHost = "http://" + ipfsHost + ':' + ipfsWebPort + "/ipfs";
 
@@ -186,7 +188,11 @@
                                                             <input type="text" class="form-control" id="titleofpaper" aria-describedby="emailHelp" placeholder="Enter Description">
                                                     </div>
                                                     <div class="form-group">
-                                                            <label for="urlp">Paper URL</label>
+                                                            <label for="name1">Name</label>
+                                                            <input type="text" class="form-control" id="name1" aria-describedby="emailHelp" placeholder="Enter Name">
+                                                    </div>
+                                                    <div class="form-group">
+                                                            <label for="urlp">Papere URL</label>
                                                             <input type="text" class="form-control" id="urlp" aria-describedby="emailHelp" placeholder="Enter URL">
                                                     </div>
                                                     <div class="form-group">
@@ -197,6 +203,9 @@
                                             <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                                             <button id="submit" class="btn btn-success disabled">Submit</button>
                                             <button id="aa" class="btn btn-fail">Submit</button>
+                                            <button id="bb" class="btn btn-fail">View Latest</button>
+                                            <button id="chain" class="btn btn-fail">Chain</button>
+
 
                                     </div>
                                     <div class="modal-footer">
@@ -226,7 +235,7 @@
                                               </button>
                                             </div>
                                             <div class="modal-body">
-                                                   TODO TODO TODO TODO
+                                                   <button id="faucet" class="btn btn-success">Get money</button>
                                             </div>
                                             <div class="modal-footer">
                                               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -237,7 +246,20 @@
                 </div>
 
 
+
             </div>
+
+            <div style="margin-top: 5%;">
+                    <h3 id="acc" style="text-align: center;">Current Ether Account Address: </h3>
+                </div>
+            <div style="margin-top: 5%;">
+                    <h3 id="val" style="text-align: center;">Account Value:</h3>
+                </div>
+
+            <div style="margin-top: 5%;">
+                    <h3 id="ttval" style="text-align: center;">TrailToken Value:</h3>
+                </div>
+
         </div>
             <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
