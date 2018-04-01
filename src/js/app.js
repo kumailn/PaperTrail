@@ -145,11 +145,12 @@ App = {
         console.log(error);
       }
       var account = accounts[0];
+
       App.contracts.Store.deployed().then(function(instance) {
         //adoptionInstance = instance;
         // Execute adopt as a transaction by sending account
+
         return instance.save(window.ipfsHash, "123", $("#name1").val(), {from: account});
-        $("#yourhash").text("Your file hash: " + window.ipfsHash);
         //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
       }).then(function(result) {
         console.log("Successfully added to block: " + result);
@@ -239,6 +240,7 @@ App = {
         //adoptionInstance = instance;
         // Execute adopt as a transaction by sending account
         //return instance.getFile({from: account});
+        window.open("http://localhost:8080/ipfs/" + $("#fhash").val(), '_blank');
         var found;
         instance.getLength({from: account}).then(function(data){
           console.log(data.c[0]);
