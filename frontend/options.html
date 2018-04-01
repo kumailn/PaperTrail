@@ -30,7 +30,7 @@
 
             $('#valm').click(function(){
             $('#valmodal').modal('show');
-            });        
+            });         
 
                         // Config
             var ipfsHost    = 'localhost',
@@ -145,11 +145,16 @@
                               <span aria-hidden="true">&times;</span>
                             </button>
                           </div>
-                          <div class="modal-body" id="pdfmodal">
-                                  <div style="text-align: center;">
-                                          <iframe src="http://www.cs.yale.edu/homes/aspnes/classes/202/notes.pdf"  
-                                          style="width:750px; height:500px;" frameborder="0"></iframe>
-                                  </div> 
+                          <div class="modal-body">
+                            <center> <button type="button" class="btn btn-primary btn-lg">View Latest</button> </center> <br>     
+                            <center> <h1>Or</h1> </center> 
+                            <form method="post" id="box">
+                                <div class="form-group">
+                                <label for="trans" id="label2">By Transaction Number</label>
+                                <input type="text" class="form-control" name="username" aria-describedby="transHelp" placeholder="Enter Transaction Number">
+                                </div>
+                                <center> <input type="submit" value="Go" class="btn btn-outline-success" name="go"> </center>
+                              </form>
                           </div>
                           <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -196,19 +201,18 @@
                                             </form>
                                             <button id="ipfs-upload" class="btn btn-primary">Upload to IPFS</button>
                                             <button id="submit" class="btn btn-success disabled">Submit</button>
-                                            <button id="aa" class="btn btn-fail">Submit</button>
+                                            <button id="cnfrm" type="button" class="btn btn-fail">Test</button>
 
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                     </div>
+
                                   </div>
                                 </div>
                               </div>
                 
                     </div>
-
-
 
                 <div class="col-md-4">
                     
