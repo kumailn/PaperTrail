@@ -43,5 +43,13 @@ Firstly install IPFS, if you are on Windows download the binary and add it to yo
 
 Make sure you have NodeJS installed for the next steps:
 - `$ npm install -g truffle` 
-If you're on windows go to the truffle binary in your path, can be found by  - `$ where truffle`, and rename the two files called "truffle" to "truff". This is to avoid name errors later on when we execute commands.
+If you're on windows go to the truffle binary in your path, can be found by  - `$ where truffle`, and rename the two files called "truffle" to "truff". This is to avoid name errors later on when we execute commands. If you are using windows, use 'truff' where you see 'truffle' in the next steps.
+- `$ npm install`
+- Download and install [Ganache](http://truffleframework.com/ganache/) and [MetaMask](https://metamask.io/)
+- In your terminal in the project folder run `$ tuffle compile`
+- Then run `$ truffle migrate`
+- You should see in Ganache after the migrate command has been completed that there are no longer 0 blocks on our chain. This means our smart contracts have been migrated to the chain
+- Install [Allow-Control-Origin](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en) and make sure it's turned on. Please trun it off whenever you're not using PaperTrail because it can cause issues loading other websites.
+- Then start the IPFS Daemon by `$ ipfs daemon`
+- Then finally, in another command window in the same directory run `$ npm run dev`
 
