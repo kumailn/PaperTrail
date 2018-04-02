@@ -1,4 +1,4 @@
-# ResearchChain
+# PaperTrail
 
 ## Inspiration
 Scientific progress often occurrs slowly, but it is necessary for advanced technologies and improvements in human lives. We were inspired by the knowledge that there are several well-publicized issues with the current peer review system in academia. We recognized that blockchains and decentralized applications (DApps) are an emerging technology that could solve these problems, thereby removing unnecessary barriers in the progression of human knowledge.
@@ -39,5 +39,5 @@ Firstly install IPFS, if you are on Windows download the binary and add it to yo
 - `$ ipfs` in your command line/ terminal and see if IPFS works 
 - `$ ipfs init`
 - `$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"`
-- `$ ipfs config --json Gateway.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"
+- `$ ipfs config --json Gateway.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"`
 
