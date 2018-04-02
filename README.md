@@ -41,3 +41,7 @@ Firstly install IPFS, if you are on Windows download the binary and add it to yo
 - `$ ipfs config --json API.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"`
 - `$ ipfs config --json Gateway.HTTPHeaders.Access-Control-Allow-Origin "[\"*\"]"`
 
+Make sure you have NodeJS installed for the next steps:
+- `$ npm install -g truffle` 
+If you're on windows go to the truffle binary in your path, can be found by  - `$ where truffle`, and rename the two files called "truffle" to "truff". This is to avoid name errors later on when we execute commands.
+
