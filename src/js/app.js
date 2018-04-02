@@ -2,21 +2,6 @@ App = {
   web3Provider: null,
   contracts: {},
   init: function() {
-    // Load pets.
-    $.getJSON('../pets.json', function(data) {
-      var petsRow = $('#petsRow');
-      var petTemplate = $('#petTemplate');
-      // for (i = 0; i < data.length; i ++) {
-      //   petTemplate.find('.panel-title').text(data[i].name);
-      //   petTemplate.find('img').attr('src', data[i].picture);
-      //   petTemplate.find('.pet-breed').text(data[i].breed);
-      //   petTemplate.find('.pet-age').text(data[i].age);
-      //   petTemplate.find('.pet-location').text(data[i].location);
-      //   petTemplate.find('.btn-adopt').attr('data-id', data[i].id);
-
-      //   petsRow.append(petTemplate.html());
-      // }
-    });
 
     return App.initWeb3();
   },
@@ -80,11 +65,6 @@ App = {
     $(document).on('click', "#gotocnfrmvalid", App.handleReview);
     $(document).on('click', "#view-go", App.handleReviewChain);
 
-
-    //$(document).on('click', '#sbmt', App.submitPaper);
-
-    //console.log($("#sbmt").text());
-
     return App.init2();
   },
 
@@ -147,8 +127,6 @@ App = {
       var account = accounts[0];
 
       App.contracts.Store.deployed().then(function(instance) {
-        //adoptionInstance = instance;
-        // Execute adopt as a transaction by sending account
 
         return instance.save(window.ipfsHash, "123", $("#name1").val(), {from: account});
         //return instance.save("Qmb4AVrYLiXeGa9uboncWrLZXaDgb6ycz98CZ8ua3JcQmB", "123", "Kumail", {from: account});
