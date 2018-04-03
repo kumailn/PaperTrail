@@ -1,10 +1,10 @@
 # PaperTrail
-![alt text](https://i.imgur.com/S1zpFth.png)
+![PaperTrail](https://i.imgur.com/S1zpFth.png)
 ## Inspiration
 Scientific progress often occurrs slowly, but it is necessary for advanced technologies and improvements in human lives. We were inspired by the knowledge that there are several well-publicized issues with the current peer review system in academia. We recognized that blockchains and decentralized applications (DApps) are an emerging technology that could solve these problems, thereby removing unnecessary barriers in the progression of human knowledge.
 
 ## What it does
-Our decentralized web application allows scientists from around the world to view, upload, and peer review scientific publications. As a DApp, it can address many of the growing concerns of the scientific community and public by: 
+Our decentralized web application allows scientists from around the world to view, upload, and peer review scientific publications. We created our token built on the the Ethereum blockchain which is awarded to scientists who peer review papers, the token in turn can allow scientists to purchase other papers for their own personal research. As a DApp, it can address many of the growing concerns of the scientific community and public by: 
 1. Ensuring trust and transparency
 2. Incentivizing & speeding up the review process
 3. Reducing costs for publishing
@@ -53,7 +53,7 @@ If you're on windows go to the truffle binary in your path, can be found by  - `
 - Then start the IPFS Daemon by `$ ipfs daemon`
 - Then finally, in another command window in the same directory run `$ npm run dev`
 
-## Buit By
+## Built By
 * [Jaison Loodu](https://github.com/Jailoodu)
 * [Pedrum Shemirani](https://github.com/pedrumstick)
 * [Kajoban Kuhaparan](https://github.com/kajoban)
