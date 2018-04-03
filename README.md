@@ -25,7 +25,7 @@ We learned a tremendous amount about decentralized applications, blockchain tech
 ## What's next
 We would like to incorporate some additional functionality into the app. Several tools, such as: a parser to extract key document sections, ranking for community impact, and filtering when viewing manuscripts, all fit with our broader vision for the application.
 
-##Dependencies 
+## Dependencies 
 PaperTrail is officially supported on MacOSx, Linux and Windows, you will need these tools in order to run PaperTrail on your own setup:
 * [node.js](https://nodejs.org/en/)
 * [MetaMask](https://metamask.io/)
@@ -34,7 +34,7 @@ PaperTrail is officially supported on MacOSx, Linux and Windows, you will need t
 * [IPFS](https://ipfs.io/docs/install/)
 * [Allow-Control-Origin](https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en)
 
-##Getting this setup
+## Getting this setup
 Firstly install IPFS, if you are on Windows download the binary and add it to your Path. Next execute the following commands:
 - `$ ipfs` in your command line/ terminal and see if IPFS works 
 - `$ ipfs init`
@@ -53,7 +53,7 @@ If you're on windows go to the truffle binary in your path, can be found by  - `
 - Then start the IPFS Daemon by `$ ipfs daemon`
 - Then finally, in another command window in the same directory run `$ npm run dev`
 
-##Buit By
+## Buit By
 * [Jaison Loodu](https://github.com/Jailoodu)
 * [Pedrum Shemirani](https://github.com/pedrumstick)
 * [Kajoban Kuhaparan](https://github.com/kajoban)
