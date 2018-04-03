@@ -53,3 +53,9 @@ If you're on windows go to the truffle binary in your path, can be found by  - `
 - Then start the IPFS Daemon by `$ ipfs daemon`
 - Then finally, in another command window in the same directory run `$ npm run dev`
 
+##Buit By
+* [Jaison Loodu](https://github.com/Jailoodu)
+* [Pedrum Shemirani](https://github.com/pedrumstick)
+* [Kajoban Kuhaparan](https://github.com/kajoban)
+* [Kumail Naqvi](https://github.com/kumailn)
+
