@@ -1,4 +1,4 @@
-# PaperTrail
+# PaperTrail 📜
 ![PaperTrail](https://i.imgur.com/S1zpFth.png)
 ## Inspiration
 Scientific progress often occurrs slowly, but it is necessary for advanced technologies and improvements in human lives. We were inspired by the knowledge that there are several well-publicized issues with the current peer review system in academia. We recognized that blockchains and decentralized applications (DApps) are an emerging technology that could solve these problems, thereby removing unnecessary barriers in the progression of human knowledge.
